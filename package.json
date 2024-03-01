@@ -1,6 +1,6 @@
 {
   "name": "@cubejs-backend/apla-clickhouse",
-  "version": "1.6.4",
+  "version": "1.7.0",
   "description": "ClickHouse database interface",
   "main": "src/clickhouse.js",
   "scripts": {
