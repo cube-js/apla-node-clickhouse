@@ -1,5 +1,5 @@
 {
-  "name": "@apla/clickhouse",
+  "name": "@cubejs-backend/apla-clickhouse",
   "version": "1.6.4",
   "description": "ClickHouse database interface",
   "main": "src/clickhouse.js",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/apla/node-clickhouse.git"
+    "url": "git+https://github.com/cube-js/apla-node-clickhouse.git"
   },
   "keywords": [
     "clickhouse",
@@ -24,9 +24,9 @@
   "author": "Ivan Baktsheev <dot.and.thing@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/apla/node-clickhouse/issues"
+    "url": "https://github.com/cube-js/apla-node-clickhouse/issues"
   },
-  "homepage": "https://github.com/apla/node-clickhouse#readme",
+  "homepage": "https://github.com/cube-js/apla-node-clickhouse#readme",
   "dependencies": {},
   "devDependencies": {
     "bluebird": "^3.5.0",
