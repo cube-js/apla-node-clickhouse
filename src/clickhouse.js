@@ -49,7 +49,6 @@ function httpResponseHandler (stream, reqParams, reqData, cb, response) {
 
 	//another chunk of data has been received, so append it to `str`
 	response.on ('data', function (chunk) {
-
 		symbolsTransferred += chunk.length;
 
 		// JSON response
@@ -283,12 +282,7 @@ ClickHouse.prototype.query = function (chQuery, options, cb) {
 
 	var formatEnding = '';
 
-	// format should be added for data queries
-	if (chQuery.match (/^(?:SELECT|WITH|SHOW|DESC|DESCRIBE|EXISTS\s+TABLE)/i)) {
-		if (!options.format)
-			options.format = options.dataObjects ? 'JSON' : 'JSONCompact';
-	} else if (chQuery.match (/^INSERT/i)) {
-
+	if (chQuery.match (/^INSERT/i)) {
 		// There is some variants according to the documentation:
 		// 1. Values already available in the query: INSERT INTO t VALUES (1),(2),(3)
 		// 2. Values must me provided with POST data: INSERT INTO t VALUES
@@ -303,7 +297,7 @@ ClickHouse.prototype.query = function (chQuery, options, cb) {
 			options.format = 'Values';
 			options.omitFormat = true;
 
-		} else if (chQuery.match (/INSERT\s+INTO\s+\S+\s+(?:\([^\)]+\)\s+)?SELECT/mi)) {
+		} else if (chQuery.match (/INSERT\s+INTO\s+\S+\s+(?:\([^\)]+\)\s+)?SELECT/mi) || chQuery.match(/INSERT\s+INTO\s+FUNCTION/mi)) {
 			reqData.finalized  = true;
 			options.omitFormat = true;
 		} else {
@@ -319,6 +313,10 @@ ClickHouse.prototype.query = function (chQuery, options, cb) {
 				options.omitFormat = true;
 			}
 		}
+	} else if (chQuery.match (/^(?:SELECT|WITH|SHOW|DESC|DESCRIBE|EXISTS\s+TABLE)/i)) {
+		// format should be added for data queries
+		if (!options.format)
+			options.format = options.dataObjects ? 'JSON' : 'JSONCompact';
 	} else {
 		options.omitFormat = true;
 	}
